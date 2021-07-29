@@ -11,6 +11,9 @@ class StoryController {
   /// Stream that broadcasts the playback state of the stories.
   final playbackNotifier = BehaviorSubject<PlaybackState>();
 
+  /// Stream that broadcasts the volume
+  final volumeNotifier = BehaviorSubject<double>();
+
   /// Notify listeners with a [PlaybackState.pause] state
   void pause() {
     playbackNotifier.add(PlaybackState.pause);
@@ -27,6 +30,11 @@ class StoryController {
 
   void previous() {
     playbackNotifier.add(PlaybackState.previous);
+  }
+
+  /// Set volume for video story
+  void setVolume(double volume) {
+    volumeNotifier.add(volume);
   }
 
   /// Remember to call dispose when the story screen is disposed to close
