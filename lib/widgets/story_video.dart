@@ -68,6 +68,7 @@ class StoryVideoState extends State<StoryVideo> {
   Future<void>? playerLoader;
 
   StreamSubscription? _streamSubscription;
+  StreamSubscription? _volumeSubscription;
 
   VideoPlayerController? playerController;
 
@@ -95,6 +96,10 @@ class StoryVideoState extends State<StoryVideo> {
             } else {
               playerController!.play();
             }
+          });
+          _volumeSubscription =
+              widget.storyController!.volumeNotifier.listen((volume) {
+            playerController!.setVolume(volume);
           });
         }
       } else {
@@ -148,6 +153,7 @@ class StoryVideoState extends State<StoryVideo> {
   void dispose() {
     playerController?.dispose();
     _streamSubscription?.cancel();
+    _volumeSubscription?.cancel();
     super.dispose();
   }
 }
